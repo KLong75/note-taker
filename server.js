@@ -9,7 +9,7 @@ const { query } = require('express');
 const app = express();
 
 // refresh page on delete of note to remove deleted note from the screen
-// not sure why you have to click the trash can button twice for this to work 
+// there is a noticeable hesitation on the screen when this takes place, not sure yet how to clean that up
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload")
 
@@ -20,9 +20,8 @@ liveReloadServer.server.once("connection", () => {
   }, 100);
 });
 
-app.use(connectLiveReload());
-
 // middleware
+app.use(connectLiveReload());
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -65,9 +64,9 @@ app.delete('/api/notes/:id', (req, res) => {
         res.send(req.body);
       });
 });
+
 // catch route
 app.get('*', (req, res) => {
-
     res.sendFile(path.join(__dirname, './public/index.html'))
 });
 
