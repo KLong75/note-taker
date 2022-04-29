@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const db = require('./db/db.json');
 const uniqid = require('uniqid');
+const { parse } = require('path');
+const { query } = require('express');
 
 const app = express();
 
@@ -27,14 +29,37 @@ app.post('/api/notes', (req, res) => {
     console.log(req.body);
     console.log(db);
     db.push(req.body);
-    console.log(db)
+    console.log(db);
 
     fs.writeFile('./db/db.json', JSON.stringify(db), () => {
         res.send(req.body);
     });
-
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+  const deleteNoteId = req.params.id;
+  //const noteList = data;
+  
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+      //console.log(data);
+      console.log(deleteNoteId);
+      const noteList = JSON.parse(data);
+      console.log(noteList);
+      
+
+// remove selected note from data
+      const filterList = noteList.filter(item => item.id !== deleteNoteId);
+      console.log(filterList);
+        
+      fs.writeFile('./db/db.json', JSON.stringify(filterList), () => {
+        res.send(req.body);
+       
+    });
+    
+  });
+        
+   
+});
 // catch route
 app.get('*', (req, res) => {
 
