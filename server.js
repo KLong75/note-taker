@@ -7,6 +7,8 @@ const uniqid = require('uniqid');
 const { parse } = require('path');
 const { query } = require('express');
 
+const PORT = process.env.PORT || 3001;
+
 const app = express();
 
 // refresh page on delete of note to remove deleted note from the screen
@@ -65,6 +67,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'))
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log("Server is now running")
 });
