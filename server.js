@@ -6,14 +6,26 @@ const db = require('./db/db.json');
 const uniqid = require('uniqid');
 const { parse } = require('path');
 const { query } = require('express');
-
 const app = express();
+
+// refresh page on delete of note to remove deleted note from the screen
+// not sure why you have to click the trash can button twice for this to work 
+const livereload = require("livereload");
+const connectLiveReload = require("connect-livereload")
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+      liveReloadServer.refresh("/");
+  }, 100);
+});
+
+app.use(connectLiveReload());
 
 // middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
 
 // routes
 app.get('/notes', (req, res) => {
@@ -38,7 +50,6 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
   const deleteNoteId = req.params.id;
-  //const noteList = data;
   
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
       //console.log(data);
@@ -46,26 +57,20 @@ app.delete('/api/notes/:id', (req, res) => {
       const noteList = JSON.parse(data);
       console.log(noteList);
       
-
 // remove selected note from data
       const filterList = noteList.filter(item => item.id !== deleteNoteId);
       console.log(filterList);
         
       fs.writeFile('./db/db.json', JSON.stringify(filterList), () => {
         res.send(req.body);
-       
     });
-    
   });
-        
-   
 });
 // catch route
 app.get('*', (req, res) => {
 
     res.sendFile(path.join(__dirname, './public/index.html'))
 });
-
 
 app.listen(3001, () => {
     console.log("Server is now running")
