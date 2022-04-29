@@ -6,6 +6,7 @@ let db = require('./db/db.json');
 const uniqid = require('uniqid');
 const { parse } = require('path');
 const { query } = require('express');
+
 const app = express();
 
 // refresh page on delete of note to remove deleted note from the screen
@@ -49,14 +50,8 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
   const deleteNoteId = req.params.id;
-  /*
-  fs.readFile('./db/db.json', 'utf8', (err, data) => {
-      //console.log(data);
-      console.log(deleteNoteId);
-      const noteList = JSON.parse(data);
-      console.log(noteList);*/
       
-// remove selected note from data
+// remove selected note from db
       const filterList = db.filter(item => item.id !== deleteNoteId);
       console.log(filterList);
         
