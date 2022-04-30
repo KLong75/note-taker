@@ -11,22 +11,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-// refresh page on delete of note to remove deleted note from the screen
-// there is a noticeable hesitation on the screen when this takes place, not sure yet how to clean that up
-
-/*
-const livereload = require("livereload");
-const connectLiveReload = require("connect-livereload")
-
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-      liveReloadServer.refresh("/");
-  }, 100);
-});
-
-app.use(connectLiveReload());
-*/
 // middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));
