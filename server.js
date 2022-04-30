@@ -13,6 +13,8 @@ const app = express();
 
 // refresh page on delete of note to remove deleted note from the screen
 // there is a noticeable hesitation on the screen when this takes place, not sure yet how to clean that up
+
+/*
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload")
 
@@ -23,8 +25,9 @@ liveReloadServer.server.once("connection", () => {
   }, 100);
 });
 
-// middleware
 app.use(connectLiveReload());
+*/
+// middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -56,6 +59,7 @@ app.delete('/api/notes/:id', (req, res) => {
 // remove selected note from db
       const filterList = db.filter(item => item.id !== deleteNoteId);
       console.log(filterList);
+      db = filterList;
         
       fs.writeFile('./db/db.json', JSON.stringify(filterList), () => {
         res.send(req.body);
