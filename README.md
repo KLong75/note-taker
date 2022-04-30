@@ -8,6 +8,9 @@ https://note-taker-gnolvek.herokuapp.com/
 Note Taker is an Express.js note taking app that allows the user to quickly write and save notes so they can keep track of tasks and other important information. Notes can be deleted when they are no longer needed.
 
 ## Screenshoots
+![note-taker](https://user-images.githubusercontent.com/98487770/166088857-42be9a20-cf73-4b13-b266-e8dee7d4881f.png)
+![note-taker5](https://user-images.githubusercontent.com/98487770/166088871-1b4ce17a-165c-442e-be03-07040a6d542c.png)
+![note-taker2](https://user-images.githubusercontent.com/98487770/166088892-ea545c73-3bdc-49e8-a303-5198af407c6c.png)
 
 
 ## Table of Contents
