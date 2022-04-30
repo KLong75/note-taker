@@ -1,7 +1,7 @@
 # Note Taker
 ![license badge!](https://img.shields.io/badge/license-MIT-blue)
 
-## URL
+## URL of Deployed Application
 https://note-taker-gnolvek.herokuapp.com/
 
 ## Description
